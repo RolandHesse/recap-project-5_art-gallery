@@ -6,16 +6,11 @@ export default function SpotlightPage({
   onToggleFavorite,
   slug,
 }) {
-  const randomArt = data[Math.floor(Math.random() * data.length)];
-  console.log("slug1:", slug);
+  let randomArt = {};
 
-  // let randomArt = {};
-
-  // if (slug === "") {
-  //   randomArt = data[Math.floor(Math.random() * data.length)];
-  // } else randomArt = data.find((art) => art.slug === slug);
-
-  // console.log("slug2:", slug);
+  if (slug === "") {
+    randomArt = data[Math.floor(Math.random() * data.length)];
+  } else randomArt = data.find((art) => art.slug === slug);
 
   return (
     <div>

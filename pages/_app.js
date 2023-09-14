@@ -24,7 +24,7 @@ export default function App({ Component, pageProps }) {
   const [slug, setSlug] = useState("");
 
   function handleToggleFavorite(slug) {
-    // setSlug(slug);
+    setSlug(slug);
 
     setArtPiecesInfo((artPiecesInfo) => {
       // find the art piece in the state
@@ -41,6 +41,22 @@ export default function App({ Component, pageProps }) {
   }
 
   console.log("artPiecesInfo: ", artPiecesInfo);
+  console.log("data: ", data);
+
+  const favoritePieces = artPiecesInfo.map((artPiece) => {
+    const dataObjectByName = data.find(
+      (artObject) => artObject.slug === artPiece.slug
+    );
+    return {
+      ...artPiece,
+      artist: dataObjectByName.artist,
+      name: dataObjectByName.name,
+      imageSource: dataObjectByName.imageSource,
+      year: dataObjectByName.year,
+    };
+  });
+
+  console.log("favoritePieces: ", favoritePieces);
 
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
@@ -54,6 +70,7 @@ export default function App({ Component, pageProps }) {
         slug={slug}
         onToggleFavorite={handleToggleFavorite}
         artPiecesInfo={artPiecesInfo}
+        favoritePieces={favoritePieces}
       />
       <Layout />
     </>
