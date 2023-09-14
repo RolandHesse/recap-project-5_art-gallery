@@ -21,8 +21,11 @@ export default function App({ Component, pageProps }) {
   );
 
   const [artPiecesInfo, setArtPiecesInfo] = useState([]);
+  const [slug, setSlug] = useState("");
 
   function handleToggleFavorite(slug) {
+    // setSlug(slug);
+
     setArtPiecesInfo((artPiecesInfo) => {
       // find the art piece in the state
       const info = artPiecesInfo.find((info) => info.slug === slug);
@@ -48,6 +51,7 @@ export default function App({ Component, pageProps }) {
       <Component
         {...pageProps}
         data={data}
+        slug={slug}
         onToggleFavorite={handleToggleFavorite}
         artPiecesInfo={artPiecesInfo}
       />
