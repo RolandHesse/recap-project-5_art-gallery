@@ -6,10 +6,13 @@ export default function ArtPiecesPage({
   onToggleFavorite,
 }) {
   return (
-    <ArtPieces
-      onToggleFavorite={onToggleFavorite}
-      artPiecesInfo={artPiecesInfo}
-      pieces={data}
-    />
+    <>
+      <h1>Art Gallery</h1>
+      <ArtPieces
+        onToggleFavorite={onToggleFavorite}
+        artPiecesInfo={artPiecesInfo}
+        pieces={data}
+      />
+    </>
   );
 }
