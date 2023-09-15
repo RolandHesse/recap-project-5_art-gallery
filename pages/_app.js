@@ -36,12 +36,36 @@ export default function App({ Component, pageProps }) {
         );
       }
       // if the art piece is not in the state, add it with isFavorite set to true;
-      return [...artPiecesInfo, { slug, isFavorite: true }];
+      return [...artPiecesInfo, { slug, isFavorite: true, comments: [] }];
     });
   }
 
-  console.log("artPiecesInfo: ", artPiecesInfo);
-  console.log("data: ", data);
+  function handleSubmitComment(event, slug) {
+    event.preventDefault();
+    const form = event.target;
+    const comment = form.elements.comment.value;
+    console.log("Comment", comment);
+    form.reset();
+    form.elements.comment.focus();
+
+    setArtPiecesInfo((artPiecesInfo) => {
+      // find the art piece in the state
+      const info = artPiecesInfo.find((info) => info.slug === slug);
+      // if the art piece is already in the state, add the comment to the comments array;
+      if (info) {
+        return artPiecesInfo.map((info) =>
+          info.slug === slug
+            ? { ...info, comments: [...info.comments, comment] }
+            : info
+        );
+      }
+      // if the art piece is not in the state, add it with isFavorite set to false and add comment to comments array ;
+      return [
+        ...artPiecesInfo,
+        { slug, isFavorite: false, comments: [comment] },
+      ];
+    });
+  }
 
   const favoritePieces = artPiecesInfo.map((artPiece) => {
     const dataObjectByName = data.find(
@@ -56,8 +80,6 @@ export default function App({ Component, pageProps }) {
     };
   });
 
-  console.log("favoritePieces: ", favoritePieces);
-
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
 
@@ -71,6 +93,7 @@ export default function App({ Component, pageProps }) {
         onToggleFavorite={handleToggleFavorite}
         artPiecesInfo={artPiecesInfo}
         favoritePieces={favoritePieces}
+        onSubmitComment={handleSubmitComment}
       />
       <Layout />
     </>

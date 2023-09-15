@@ -17,7 +17,7 @@ export default function ArtPieceDetails({
     router.push("/art-pieces");
   }
   return (
-    <section>
+    <>
       <button onClick={handleBack}>Back</button>
       <br />
       <Image width={200} height={200} alt={name} src={image} />
@@ -31,6 +31,6 @@ export default function ArtPieceDetails({
         onToggleFavorite={onToggleFavorite}
         slug={slug}
       />
-    </section>
+    </>
   );
 }
