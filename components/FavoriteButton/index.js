@@ -11,11 +11,6 @@ export default function FavoriteButton({
 
   const { isFavorite } = currentArtPiece;
 
-  console.log("currentArtPiece: ", currentArtPiece);
-
-  console.log("isFavorite: ", isFavorite);
-  console.log("artPiecesInfo: ", artPiecesInfo);
-
   return (
     <Button onClick={() => onToggleFavorite(slug)}>
       {isFavorite ? (
