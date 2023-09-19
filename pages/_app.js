@@ -35,7 +35,7 @@ export default function App({ Component, pageProps }) {
           info.slug === slug ? { ...info, isFavorite: !info.isFavorite } : info
         );
       }
-      // if the art piece is not in the state, add it with isFavorite set to true;
+      // if the art piece is not in the state, add it with isFavorite set to true and comments set to an empty array;
       return [...artPiecesInfo, { slug, isFavorite: true, comments: [] }];
     });
   }
@@ -43,8 +43,13 @@ export default function App({ Component, pageProps }) {
   function handleSubmitComment(event, slug) {
     event.preventDefault();
     const form = event.target;
-    const comment = form.elements.comment.value;
-    console.log("Comment", comment);
+    // Get the current date and time
+    const currentTime = new Date();
+    const comment = {
+      commentText: form.elements.comment.value,
+      commentDate: currentTime.toLocaleDateString(),
+      commentTime: currentTime.toLocaleTimeString(),
+    };
     form.reset();
     form.elements.comment.focus();
 

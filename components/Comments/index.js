@@ -6,7 +6,12 @@ export default function Comments({ comments }) {
       <h3>Comments: </h3>
       <ul>
         {comments?.map((comment) => {
-          return <li key={comment}>{comment}</li>;
+          return (
+            <li key={comment.commentText}>
+              {comment.commentText} ({comment.commentDate},{" "}
+              {comment.commentTime})
+            </li>
+          );
         })}
       </ul>
     </PageWrapper>
