@@ -26,8 +26,6 @@ export default function App({ Component, pageProps }) {
     { defaultValue: [] }
   );
 
-  // const [artPiecesInfo, setArtPiecesInfo] = useState([]);
-
   const [slug, setSlug] = useState("");
 
   function handleToggleFavorite(slug) {
@@ -83,13 +81,15 @@ export default function App({ Component, pageProps }) {
     const dataObjectByName = data?.find(
       (artObject) => artObject.slug === artPiece.slug
     );
-    return {
-      ...artPiece,
-      artist: dataObjectByName?.artist,
-      name: dataObjectByName?.name,
-      imageSource: dataObjectByName?.imageSource,
-      year: dataObjectByName?.year,
-    };
+    if (artPiece.isFavorite === true) {
+      return {
+        ...artPiece,
+        artist: dataObjectByName?.artist,
+        name: dataObjectByName?.name,
+        imageSource: dataObjectByName?.imageSource,
+        year: dataObjectByName?.year,
+      };
+    }
   });
 
   if (error) return <div>failed to load</div>;
