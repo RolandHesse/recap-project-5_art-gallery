@@ -77,23 +77,29 @@ export default function App({ Component, pageProps }) {
     });
   }
 
-  const favoritePieces = artPiecesInfo?.map((artPiece) => {
-    const dataObjectByName = data?.find(
-      (artObject) => artObject.slug === artPiece.slug
-    );
-    if (artPiece.isFavorite === true) {
-      return {
-        ...artPiece,
-        artist: dataObjectByName?.artist,
-        name: dataObjectByName?.name,
-        imageSource: dataObjectByName?.imageSource,
-        year: dataObjectByName?.year,
-      };
-    }
-  });
+  const favoritePieces = artPiecesInfo
+    .filter((artPiece) => artPiece.isFavorite === true)
+    .map((artPiece) => {
+      const dataObjectByName = data?.find(
+        (artObject) => artObject.slug === artPiece.slug
+      );
+      if (artPiece.isFavorite === true) {
+        return {
+          ...artPiece,
+          artist: dataObjectByName?.artist,
+          name: dataObjectByName?.name,
+          imageSource: dataObjectByName?.imageSource,
+          year: dataObjectByName?.year,
+        };
+      } else {
+        return;
+      }
+    });
 
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
+
+  console.log("data: ", data);
 
   return (
     <>

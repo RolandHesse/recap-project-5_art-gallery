@@ -5,14 +5,20 @@ export default function FavoritesPage({
   artPiecesInfo,
   onToggleFavorite,
 }) {
-  return (
-    <>
-      <h1>Art Gallery</h1>
-      <ArtPieces
-        pieces={favoritePieces}
-        artPiecesInfo={artPiecesInfo}
-        onToggleFavorite={onToggleFavorite}
-      />
-    </>
-  );
+  console.log("favoritePieces: ", favoritePieces);
+  console.log("artPiecesInfo: ", artPiecesInfo);
+  if (favoritePieces) {
+    return (
+      <>
+        <h1>Art Gallery</h1>
+        <ArtPieces
+          pieces={favoritePieces}
+          artPiecesInfo={artPiecesInfo}
+          onToggleFavorite={onToggleFavorite}
+        />
+      </>
+    );
+  } else {
+    return <h1>Art Gallery</h1>;
+  }
 }
