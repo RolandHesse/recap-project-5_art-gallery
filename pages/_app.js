@@ -2,6 +2,7 @@ import Layout from "@/components/Layout";
 import GlobalStyle from "../styles";
 import useSWR from "swr";
 import { useState } from "react";
+import useLocalStorageState from "use-local-storage-state";
 
 const fetcher = async (url) => {
   const res = await fetch(url);
@@ -20,7 +21,13 @@ export default function App({ Component, pageProps }) {
     fetcher
   );
 
-  const [artPiecesInfo, setArtPiecesInfo] = useState([]);
+  const [artPiecesInfo, setArtPiecesInfo] = useLocalStorageState(
+    "artPiecesInfo",
+    { defaultValue: [] }
+  );
+
+  // const [artPiecesInfo, setArtPiecesInfo] = useState([]);
+
   const [slug, setSlug] = useState("");
 
   function handleToggleFavorite(slug) {
@@ -72,16 +79,16 @@ export default function App({ Component, pageProps }) {
     });
   }
 
-  const favoritePieces = artPiecesInfo.map((artPiece) => {
-    const dataObjectByName = data.find(
+  const favoritePieces = artPiecesInfo?.map((artPiece) => {
+    const dataObjectByName = data?.find(
       (artObject) => artObject.slug === artPiece.slug
     );
     return {
       ...artPiece,
-      artist: dataObjectByName.artist,
-      name: dataObjectByName.name,
-      imageSource: dataObjectByName.imageSource,
-      year: dataObjectByName.year,
+      artist: dataObjectByName?.artist,
+      name: dataObjectByName?.name,
+      imageSource: dataObjectByName?.imageSource,
+      year: dataObjectByName?.year,
     };
   });
 
